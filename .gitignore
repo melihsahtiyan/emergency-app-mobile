@@ -12,6 +12,9 @@ web-build/
 
 # macOS
 .DS_Store
+<<<<<<< HEAD
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
+=======
+>>>>>>> 68bdfc7f5205c340ceee7291f9283b59b57d023b

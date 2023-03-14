@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/native": "^6.1.6",
@@ -26,6 +27,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
+=======
+    "expo": "~47.0.12",
+    "expo-status-bar": "~1.4.2",
+    "react": "18.1.0",
+    "react-native": "0.70.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9"
+>>>>>>> 68bdfc7f5205c340ceee7291f9283b59b57d023b
   },
   "private": true
 }
