@@ -26,6 +26,7 @@ const Profile = () => {
     { key: 5, value: "AB+" },
     { key: 6, value: "AB-" },
     { key: 7, value: "O+" },
+    { key: 8, value: "O-" },
   ];
 
   const genders = [

@@ -4,44 +4,19 @@
     "slug": "emergency-app-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-<<<<<<< HEAD
     "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
-=======
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
->>>>>>> 68bdfc7f5205c340ceee7291f9283b59b57d023b
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-<<<<<<< HEAD
         "backgroundColor": "#ffffff"
       }
-=======
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
->>>>>>> 68bdfc7f5205c340ceee7291f9283b59b57d023b
     }
   }
 }
