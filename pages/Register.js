@@ -95,7 +95,13 @@ const Register = ({ navigation }) => {
             </Text>
           </Text>
         </View>
-        <MyButton>Register</MyButton>
+        <MyButton
+          onPress={() => {
+            navigation.navigate("Profile");
+          }}
+        >
+          Register
+        </MyButton>
       </View>
       <View style={styles.checkbox}>
         <Text style={[styles.text, { color: colors.text }]}>
