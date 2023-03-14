@@ -32,6 +32,7 @@ const Register = ({ navigation }) => {
           style={{
             justifyContent: "center",
             alignItems: "center",
+            width: "100%",
           }}
         >
           <View style={styles.innerContainer}>
@@ -77,16 +78,7 @@ const Register = ({ navigation }) => {
           Save Your Life In A Few Steps
         </Header>
       </View>
-      <FlatList
-        contentContainerStyle={{
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          flex: 1,
-        }}
-        data={[1]}
-        renderItem={() => renderScreen()}
-      />
+      <FlatList data={[1]} renderItem={() => renderScreen()} />
       <View style={styles.footer}>
         <View style={[styles.checkbox]}>
           <Checkbox />
@@ -127,9 +119,6 @@ export default Register;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
     gap: 24,
   },
   header: {
