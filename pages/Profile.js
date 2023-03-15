@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, Platform, StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 import { ThemeButton } from "../components/ThemeButton";
 import GetColors from "../theme/GetColors";
@@ -8,8 +8,9 @@ import InputContainer from "../components/InputContainer";
 import { Text } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import Icon from "react-native-vector-icons/Feather";
+import UserIcon from "../components/UserIcon";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const colors = GetColors();
   const [bloodType, setBloodType] = useState("Blood Type");
   const [gender, setGender] = useState();
@@ -45,9 +46,13 @@ const Profile = () => {
     return (
       <>
         <View style={styles.container}>
-          <View
-            style={[styles.profilePhoto, { borderColor: colors.button }]}
-          ></View>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <View style={{ marginLeft: 84 }}>
+              <Icon name="camera" size={25} color={colors.button} />
+            </View>
+            <UserIcon />
+          </View>
+
           <View style={styles.dropdownContainer}>
             <SelectList
               setSelected={(val) => setBloodType(val)}
@@ -285,18 +290,22 @@ const Profile = () => {
           flexGrow: 1,
           justifyContent: "center",
         }}
-        alwaysBounceHorizontal={false}
-        alwaysBounceVertical={true}
-        ref={(ref) => {
-          this.flatListRef = ref;
-        }}
-        horizontal={true}
+        alwaysBounceHorizontal={Platform.OS === "ios" ? false : true}
+        alwaysBounceVertical={Platform.OS === "ios" ? true : false}
+        horizontal={Platform.OS === "ios" ? true : false}
         data={[1]}
         renderItem={() => renderScreen()}
         keyboardShouldPersistTaps="always"
       />
       <View style={[styles.innerContainer, { marginBottom: 36 }]}>
-        <MyButton style={{ width: 223, height: 56 }}>Finish</MyButton>
+        <MyButton
+          style={{ width: 223, height: 56 }}
+          onPress={() => {
+            navigation.navigate("Contacts");
+          }}
+        >
+          Finish
+        </MyButton>
         <MyButton
           style={{
             backgroundColor: colors.container,
@@ -341,6 +350,8 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     borderWidth: 4,
+    justifyContent: "center",
+    alignItems: "center",
   },
   listInputContainer: {
     alignItems: "center",
