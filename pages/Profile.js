@@ -54,7 +54,7 @@ const Profile = ({ navigation }) => {
             <View style={{ marginLeft: 84 }}>
               <Icon name="camera" size={25} color={colors.button} />
             </View>
-            <UserIcon />
+            <UserIcon size={120} />
           </View>
 
           <View style={styles.dropdownContainer}>
@@ -294,9 +294,9 @@ const Profile = ({ navigation }) => {
           flexGrow: 1,
           justifyContent: "center",
         }}
-        alwaysBounceHorizontal={Platform.OS === "ios" ? false : true}
-        alwaysBounceVertical={Platform.OS === "ios" ? true : false}
-        horizontal={Platform.OS === "ios" ? true : false}
+        // alwaysBounceHorizontal={Platform.OS === "ios" ? false : true}
+        // alwaysBounceVertical={Platform.OS === "ios" ? true : false}
+        // horizontal={Platform.OS === "ios" ? true : false}
         data={[1]}
         renderItem={() => renderScreen()}
         keyboardShouldPersistTaps="always"

@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import MyButton from "../components/MyButton";
+import UserIcon from "../components/UserIcon";
 import GetColors from "../theme/GetColors";
 import { ThemeContext } from "../theme/ThemeProvider";
 
@@ -28,11 +29,14 @@ const Home = ({ navigation }) => {
       <View
         style={[
           styles.innerContainer,
-          { backgroundColor: colors.input, flexDirection: "row", gap: 32 },
+          { backgroundColor: colors.input, flexDirection: "row" },
         ]}
       >
         <Text
-          style={[styles.header, { color: colors.text, textAlign: "left" }]}
+          style={[
+            styles.header,
+            { color: colors.text, textAlign: "left", padding: 10 },
+          ]}
         >
           Location Services:{" "}
           {location ? (
@@ -41,20 +45,29 @@ const Home = ({ navigation }) => {
             <Text style={{ color: colors.button }}>Off</Text>
           )}
         </Text>
-        <MyButton
-          style={[
-            styles.button,
-            { backgroundColor: colors.button + "00", width: 100, height: 40 },
-          ]}
-          textStyle={{ fontSize: 12 }}
-          onPress={() => changeTheme(!theme)}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          {theme === "light" ? (
-            <Icon name="bahai" size={27} color={"#B8A12B"} />
-          ) : (
-            <Icon name="moon" size={27} color={"#A67AFF"} />
-          )}
-        </MyButton>
+          <MyButton
+            style={[
+              styles.button,
+              { backgroundColor: colors.button + "00", width: 100, height: 40 },
+            ]}
+            textStyle={{ fontSize: 12 }}
+            onPress={() => changeTheme(!theme)}
+          >
+            {theme === "light" ? (
+              <Icon name="bahai" size={27} color={"#B8A12B"} />
+            ) : (
+              <Icon name="moon" size={27} color={"#A67AFF"} />
+            )}
+          </MyButton>
+          <UserIcon size={51} />
+        </View>
       </View>
       <View
         style={[
@@ -78,7 +91,11 @@ const Home = ({ navigation }) => {
             },
           ]}
         >
-          <MyButton style={{ borderRadius: 150, width: 300, height: 300 }}>
+          <MyButton
+            style={{ borderRadius: 150, width: 300, height: 300 }}
+            textStyle={{ fontSize: 80, fontWeight: "bold" }}
+            onPress={() => navigation.navigate("Report")}
+          >
             Help
           </MyButton>
         </View>
@@ -106,8 +123,9 @@ const styles = StyleSheet.create({
   innerContainer: {
     width: "90%",
     borderRadius: 8,
+    gap: 16,
     height: 60,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   button: {
