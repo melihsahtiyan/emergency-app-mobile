@@ -30,6 +30,10 @@ const Profile = ({ navigation }) => {
     { key: 8, value: "O-" },
   ];
 
+  const onChangeHandler = (e) => {
+    setAllergy(e);
+  };
+
   const genders = [
     { key: 1, value: "Male" },
     { key: 2, value: "Female" },

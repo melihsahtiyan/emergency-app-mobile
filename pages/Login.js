@@ -56,7 +56,7 @@ const Login = ({ navigation }) => {
         >
           <MyButton
             onPress={() => {
-              navigation.navigate("Profile");
+              navigation.navigate("Home");
             }}
           >
             Login

@@ -18,12 +18,17 @@ export default App = () => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {isLoggedIn ? (
-            <Stack.Screen name="Home" component={Home} />
+            <>
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="Contacts" component={Contacts} />
+            </>
           ) : (
             <>
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Contacts" component={Contacts} />
             </>
           )}
