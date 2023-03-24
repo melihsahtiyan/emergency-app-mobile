@@ -1,12 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  Platform,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { Pressable, StyleSheet, View, Platform, FlatList } from "react-native";
 import { Text } from "react-native-paper";
 import { globalColors } from "../theme/colors";
 import { ThemeContext } from "../theme/ThemeProvider";
@@ -21,9 +14,33 @@ const Register = ({ navigation }) => {
     theme === "light" ? globalColors.light : globalColors.dark
   );
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [identityNumber, setIdentityNumber] = useState("");
+
   useEffect(() => {
     setColors(theme === "light" ? globalColors.light : globalColors.dark);
   }, [theme]);
+
+  const onPressHandler = () => {
+    // if (password !== confirmPassword) {
+    const userForRegister = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      birthDate: dateOfBirth,
+      identityNumber: identityNumber,
+    };
+    console.log("====================================");
+    console.log("userForRegister: ", userForRegister);
+    console.log("====================================");
+    // }
+  };
 
   const renderScreen = () => {
     return (
@@ -45,21 +62,46 @@ const Register = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <InputContainer label="First Name" placeholder="First Name" />
-              <InputContainer label="Last Name" placeholder="Last Name" />
+              <InputContainer
+                label="First Name"
+                placeholder="First Name"
+                onChangeText={(e) => setFirstName(e)}
+              />
+              <InputContainer
+                label="Last Name"
+                placeholder="Last Name"
+                onChangeText={(e) => setLastName(e)}
+              />
             </View>
-            <InputContainer label="E-mail" placeholder="E-mail" />
+            <InputContainer
+              label="E-mail"
+              placeholder="E-mail"
+              onChangeText={(e) => setEmail(e)}
+              keyboardType="email-address"
+            />
             <InputContainer
               label="Password"
               placeholder="Password"
+              onChangeText={(e) => setPassword(e)}
               isHidden={true}
             />
             <InputContainer
               label="Confirm Password"
               placeholder="Confirm Password"
+              onChangeText={(e) => setConfirmPassword(e)}
               isHidden={true}
             />
-            <InputContainer label="Date Of Birth" placeholder="Date Of Birth" />
+            <InputContainer
+              label="Date Of Birth"
+              placeholder="Date Of Birth"
+              onChangeText={(e) => setDateOfBirth(e)}
+              keyboardType="date"
+            />
+            <InputContainer
+              label="Identity Number"
+              placeholder="Identity Number"
+              onChangeText={(e) => setIdentityNumber(e)}
+            />
           </View>
         </View>
       </>
@@ -97,7 +139,8 @@ const Register = ({ navigation }) => {
         </View>
         <MyButton
           onPress={() => {
-            navigation.navigate("Profile");
+            // navigation.navigate("Profile");
+            onPressHandler();
           }}
         >
           Register

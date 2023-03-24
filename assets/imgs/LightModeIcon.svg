@@ -1,0 +1,11 @@
+<svg id="LightModeIcon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <path id="Path_3" data-name="Path 3" d="M23.111,16.806A6.306,6.306,0,1,1,16.806,10.5,6.306,6.306,0,0,1,23.111,16.806Z" transform="translate(-1.806 -1.806)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_4" data-name="Path 4" d="M18,1.5V4.022" transform="translate(-3)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_5" data-name="Path 5" d="M18,31.5v2.522" transform="translate(-3 -5.522)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_6" data-name="Path 6" d="M6.33,6.33,8.121,8.121" transform="translate(-0.769 -0.769)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_7" data-name="Path 7" d="M27.54,27.54l1.791,1.791" transform="translate(-4.892 -4.892)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_8" data-name="Path 8" d="M1.5,18H4.022" transform="translate(0 -3)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_9" data-name="Path 9" d="M31.5,18h2.522" transform="translate(-5.522 -3)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_10" data-name="Path 10" d="M6.33,29.331,8.121,27.54" transform="translate(-0.769 -4.892)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path id="Path_11" data-name="Path 11" d="M27.54,8.121,29.331,6.33" transform="translate(-4.892 -0.769)" fill="none" stroke="#b49e2d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+</svg>

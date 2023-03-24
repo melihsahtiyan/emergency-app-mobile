@@ -1,16 +1,43 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useContext, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { Image, Platform, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import Icon from "react-native-vector-icons/FontAwesome5";
 import MyButton from "../components/MyButton";
 import UserIcon from "../components/UserIcon";
 import GetColors from "../theme/GetColors";
 import { ThemeContext } from "../theme/ThemeProvider";
+import * as Location from "expo-location";
+import LightModeIcon from "./../assets/imgs/LightModeIcon.svg";
+import DarkModeIcon from "./../assets/imgs/DarkModeIcon.svg";
+import { InformationsContext } from "../store/context/informations-context";
 
 const Home = ({ navigation }) => {
   const colors = GetColors();
-  const [location, setLocation] = useState(false);
+  const [permission, setPermission] = useState(false);
+  const [location, setLocation] = useState();
+
+  const informationCtx = useContext(InformationsContext);
+
+  function changeLocationHandler(location) {
+    informationCtx.setLocation(location);
+  }
+
+  useEffect(() => {
+    (async () => {
+      const location = await getLocation();
+
+      setLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        altitude: location.coords.altitude,
+      });
+    })();
+    console.log("====================================");
+    console.log("location: ", location);
+    if (location) changeLocationHandler(location);
+    console.log("Operating System: ", Platform.OS);
+    console.log("====================================");
+  }, [location]);
 
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -61,9 +88,9 @@ const Home = ({ navigation }) => {
             onPress={() => changeTheme(!theme)}
           >
             {theme === "light" ? (
-              <Icon name="bahai" size={27} color={"#B8A12B"} />
+              <Image source={LightModeIcon} />
             ) : (
-              <Icon name="moon" size={27} color={"#A67AFF"} />
+              <Image source={DarkModeIcon} style={{ width: 20, height: 20 }} />
             )}
           </MyButton>
           <UserIcon size={51} />
@@ -118,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    gap: 48,
+    gap: 120,
   },
   innerContainer: {
     width: "90%",
@@ -143,3 +170,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+async function getLocation() {
+  let { status } = await Location.requestForegroundPermissionsAsync();
+  if (status !== "granted") {
+    console.log("Permission to access location was denied");
+    return status;
+  }
+
+  let location = await Location.getCurrentPositionAsync({});
+  console.log(location);
+  return location;
+}
