@@ -19,6 +19,18 @@ Complete project is built by:
 - [Edvin Davulcu](https://github.com/CentEDO)
 
 ---
+Technologies Used In This Repository
+- React Native
+- Android Studio
+---
+Technologies Used In This Project
+- React.js
+- React Native
+- SCSS
+- C# (.NET)
+- Microsoft Sql Server
+- Google Cloud
+---
 
 ## Packages Used
 
