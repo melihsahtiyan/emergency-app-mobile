@@ -46,3 +46,8 @@ After starting the project, you can view it on your mobile device or emulator. U
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more information.
+
+---
+Other Repositories For This Project
+- [Back-End   (C#)](https://github.com/melihsahtiyan/EmergencyApplicationClassicArch)
+- [Front-End  (React)](https://github.com/AtakanYigit/Emergency-Application-Call-Center-Front-End)
