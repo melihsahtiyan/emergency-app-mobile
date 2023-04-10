@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Pressable, StyleSheet, View, Platform, FlatList } from "react-native";
+import { Pressable, StyleSheet, View, Platform, FlatList,StatusBar } from "react-native";
 import { Text } from "react-native-paper";
 import { globalColors } from "../theme/colors";
 import { ThemeContext } from "../theme/ThemeProvider";
@@ -7,6 +7,7 @@ import Checkbox from "../components/CheckBox";
 import Header from "../components/Header";
 import InputContainer from "../components/InputContainer";
 import MyButton from "../components/MyButton";
+import { register } from "../services/authService";
 
 const Register = ({ navigation }) => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -27,24 +28,27 @@ const Register = ({ navigation }) => {
   }, [theme]);
 
   const onPressHandler = () => {
-    // if (password !== confirmPassword) {
-    const userForRegister = {
-      email: email,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
-      birthDate: dateOfBirth,
-      identityNumber: identityNumber,
-    };
-    console.log("====================================");
-    console.log("userForRegister: ", userForRegister);
-    console.log("====================================");
-    // }
+    if (password == confirmPassword) {
+      const userForRegister = {
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        birthDate: dateOfBirth,
+        identityNumber: identityNumber,
+      };
+      console.log("====================================");
+      console.log("userForRegister: ", userForRegister);
+      console.log("====================================");
+
+      register(userForRegister);
+    }
   };
 
   const renderScreen = () => {
     return (
       <>
+        <StatusBar style="auto" />
         <View
           style={{
             justifyContent: "center",
@@ -95,7 +99,7 @@ const Register = ({ navigation }) => {
               label="Date Of Birth"
               placeholder="Date Of Birth"
               onChangeText={(e) => setDateOfBirth(e)}
-              keyboardType="date"
+              keyboardType="numeric"
             />
             <InputContainer
               label="Identity Number"

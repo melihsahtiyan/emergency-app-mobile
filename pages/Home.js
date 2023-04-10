@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext, useEffect, useState } from "react";
-import { Image, Platform, StyleSheet, View } from "react-native";
+import { Image, Platform, Pressable, StyleSheet, View,StatusBar } from "react-native";
 import { Text } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import UserIcon from "../components/UserIcon";
@@ -52,89 +52,105 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.container }]}>
-      <View
-        style={[
-          styles.innerContainer,
-          { backgroundColor: colors.input, flexDirection: "row" },
-        ]}
-      >
-        <Text
+    <>
+      <StatusBar style="auto" />
+      <View style={[styles.container, { backgroundColor: colors.container }]}>
+        <View
           style={[
-            styles.header,
-            { color: colors.text, textAlign: "left", padding: 10 },
+            styles.innerContainer,
+            { backgroundColor: colors.input, flexDirection: "row" },
           ]}
         >
-          Location Services:{" "}
-          {location ? (
-            <Text style={{ color: colors.green }}>On</Text>
-          ) : (
-            <Text style={{ color: colors.button }}>Off</Text>
-          )}
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <MyButton
+          <Text
             style={[
-              styles.button,
-              { backgroundColor: colors.button + "00", width: 100, height: 40 },
+              styles.header,
+              { color: colors.text, textAlign: "left", padding: 10 },
             ]}
-            textStyle={{ fontSize: 12 }}
-            onPress={() => changeTheme(!theme)}
           >
-            {theme === "light" ? (
-              <Image source={LightModeIcon} />
+            Location Services:{" "}
+            {location ? (
+              <Text style={{ color: colors.green }}>On</Text>
             ) : (
-              <Image source={DarkModeIcon} style={{ width: 20, height: 20 }} />
+              <Text style={{ color: colors.button }}>Off</Text>
             )}
-          </MyButton>
-          <UserIcon size={51} />
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <MyButton
+              style={[
+                styles.button,
+                {
+                  backgroundColor: colors.button + "00",
+                  width: 100,
+                  height: 40,
+                },
+              ]}
+              textStyle={{ fontSize: 12 }}
+              onPress={() => changeTheme(!theme)}
+            >
+              {theme === "light" ? (
+                <Image source={LightModeIcon} />
+              ) : (
+                <Image
+                  source={DarkModeIcon}
+                  style={{ width: 20, height: 20 }}
+                />
+              )}
+            </MyButton>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Profile");
+              }}
+            >
+              <UserIcon size={51} />
+            </Pressable>
+          </View>
         </View>
-      </View>
-      <View
-        style={[
-          styles.helpContainer,
-          {
-            borderRadius: 191,
-            width: 382,
-            height: 382,
-            backgroundColor: colors.button + "80",
-          },
-        ]}
-      >
         <View
           style={[
             styles.helpContainer,
             {
-              borderRadius: 174,
-              width: 348,
-              height: 348,
-              backgroundColor: colors.button + "95",
+              borderRadius: 191,
+              width: 382,
+              height: 382,
+              backgroundColor: colors.button + "80",
             },
           ]}
         >
-          <MyButton
-            style={{ borderRadius: 150, width: 300, height: 300 }}
-            textStyle={{ fontSize: 80, fontWeight: "bold" }}
-            onPress={() => navigation.navigate("Report")}
+          <View
+            style={[
+              styles.helpContainer,
+              {
+                borderRadius: 174,
+                width: 348,
+                height: 348,
+                backgroundColor: colors.button + "95",
+              },
+            ]}
           >
-            Help
-          </MyButton>
+            <MyButton
+              style={{ borderRadius: 150, width: 300, height: 300 }}
+              textStyle={{ fontSize: 80, fontWeight: "bold" }}
+              onPress={() => navigation.navigate("Report")}
+            >
+              Help
+            </MyButton>
+          </View>
         </View>
+        <MyButton
+          style={[styles.button, { backgroundColor: colors.input }]}
+          textStyle={{ fontSize: 20, color: colors.text }}
+          onPress={() => navigation.navigate("Contacts")}
+        >
+          Manage Contacts
+        </MyButton>
       </View>
-      <MyButton
-        style={[styles.button, { backgroundColor: colors.input }]}
-        textStyle={{ fontSize: 20, color: colors.text }}
-        onPress={() => navigation.navigate("Contacts")}
-      >
-        Manage Contacts
-      </MyButton>
-    </View>
+    </>
   );
 };
 

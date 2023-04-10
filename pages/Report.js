@@ -1,13 +1,11 @@
 import { useContext } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View,StatusBar } from "react-native";
 import { Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import MyButton from "../components/MyButton";
 import { InformationsContext } from "../store/context/informations-context";
 import GetColors from "../theme/GetColors";
-
 const Report = () => {
   const colors = GetColors();
 
@@ -15,6 +13,8 @@ const Report = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.container }]}>
+      <StatusBar style="auto" />
+      <Header>Help Is On the Way</Header>
       <View style={styles.innerContainer}>
         <View style={[styles.innerContainer, { flexDirection: "row" }]}>
           <Pressable
@@ -43,12 +43,13 @@ const Report = () => {
             <Text style={{ fontSize: 18, color: colors.text }}>Text</Text>
           </Pressable>
         </View>
-        <View style={[styles.innerContainer, { margin: 32 }]}>
+        <View style={[styles.input, {}]}>
           <Pressable
             style={[
               styles.buttonContainer,
               {
                 backgroundColor: colors.input,
+                width: "98%",
               },
             ]}
           >
@@ -57,14 +58,25 @@ const Report = () => {
           </Pressable>
         </View>
       </View>
-      <MyButton
-        style={{ width: "95%" }}
-        onPress={() => {
-          console.log(location);
-        }}
-      >
-        Submit
-      </MyButton>
+      <View style={[styles.innerContainer, { width: "90%" }]}>
+        <MyButton
+          style={{ width: "95%", height: 64 }}
+          onPress={() => {
+            console.log(location);
+          }}
+        >
+          Submit
+        </MyButton>
+        <MyButton
+          style={{
+            width: "95%",
+            height: 64,
+            backgroundColor: colors.container + "00",
+          }}
+        >
+          Skip
+        </MyButton>
+      </View>
     </View>
   );
 };
@@ -76,23 +88,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    gap: 48,
+    gap: 84,
   },
   innerContainer: {
     gap: 16,
-    height: 60,
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   input: {
-    height: 60,
-    borderRadius: 8,
+    width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 16,
   },
   buttonContainer: {
     justifyContent: "center",
     alignItems: "center",
     gap: 25,
-    height: 60,
+    width: 60,
     height: 175,
     borderRadius: 8,
   },

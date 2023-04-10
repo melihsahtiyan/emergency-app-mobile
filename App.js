@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Contacts from "./pages/Contacts";
 import Report from "./pages/Report";
 import InformationsProvider from "./store/context/informations-context";
+import { StatusBar } from "expo-status-bar";
 
 const Stack = createStackNavigator();
 

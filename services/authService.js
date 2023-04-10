@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:7276/api/auth";
+const apiUrl = "http://10.0.2.2:7276/api/auth";
 
-const Register = (userForRegister) => {
+const register = (userForRegister) => {
   axios
     .post(apiUrl + "/register", {
       email: userForRegister.email,
@@ -13,14 +13,16 @@ const Register = (userForRegister) => {
       identityNumber: userForRegister.identityNumber,
     })
     .then((res) => {
+      console.log("====================================");
       console.log(res);
+      console.log("====================================");
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
-const Login = (userForLogin) => {
+const login = (userForLogin) => {
   axios
     .post(apiUrl + "/login", {
       email: userForLogin.email,
@@ -34,4 +36,4 @@ const Login = (userForLogin) => {
     });
 };
 
-export { Register, Login };
+export { register, login };

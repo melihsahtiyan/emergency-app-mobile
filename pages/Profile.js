@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, Platform, StyleSheet, View } from "react-native";
+import { FlatList, Platform, StyleSheet, View, StatusBar } from "react-native";
 import Header from "../components/Header";
 import { ThemeButton } from "../components/ThemeButton";
 import GetColors from "../theme/GetColors";
@@ -49,6 +49,7 @@ const Profile = ({ navigation }) => {
   const renderScreen = () => {
     return (
       <>
+        <StatusBar style="auto" />
         <View style={styles.container}>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <View style={{ marginLeft: 84 }}>
@@ -117,8 +118,8 @@ const Profile = ({ navigation }) => {
           <View
             style={{
               justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
+              alignItems: "center",
+              width: "90%",
               gap: 16,
             }}
           >
@@ -148,14 +149,14 @@ const Profile = ({ navigation }) => {
                 />
               </MyButton>
             </View>
-
             {allergies.map((item, index) => {
               return (
                 <View
                   style={{
-                    width: "100%",
                     justifyContent: "center",
                     alignItems: "center",
+                    flexDirection: "row",
+                    gap: 12,
                   }}
                 >
                   <>
@@ -293,6 +294,8 @@ const Profile = ({ navigation }) => {
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: "center",
+          alignItems: "center",
+          width: "90%",
         }}
         // alwaysBounceHorizontal={Platform.OS === "ios" ? false : true}
         // alwaysBounceVertical={Platform.OS === "ios" ? true : false}

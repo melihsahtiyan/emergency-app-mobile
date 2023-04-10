@@ -1,17 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Pressable,
-} from "react-native";
+import { StyleSheet, Text, View, Pressable, StatusBar } from "react-native";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { globalColors } from "./../theme/colors";
 import InputContainer from "./../components/InputContainer";
 import { ThemeButton } from "../components/ThemeButton";
 import MyButton from "../components/MyButton";
-import { TextInput } from "react-native-paper";
 
 const Login = ({ navigation }) => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -24,67 +17,75 @@ const Login = ({ navigation }) => {
   }, [theme]);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.container }]}>
-      <View style={[styles.innerContainer, { marginTop: 24 }]}>
-        <Text
-          style={[
-            styles.header,
-            { color: colors.button, marginTop: Platform.OS === "ios" ? 10 : 0 },
-          ]}
-        >
-          Welcome
-        </Text>
-      </View>
-      <View style={[styles.innerContainer, { gap: 16 }]}>
-        <Text style={[styles.header, { color: colors.button }]}>Login</Text>
-        <InputContainer
-          label="E-mail"
-          placeholder="E-mail"
-          keyboardType="email-address"
-        />
-        <InputContainer
-          label="Password"
-          placeholder="Password"
-          isHidden={true}
-        />
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 8,
-          }}
-        >
-          <MyButton
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            Login
-          </MyButton>
-        </View>
-      </View>
-      <View style={[styles.innerContainer]}>
-        <Text style={[styles.text, { color: colors.text, marginBottom: 32 }]}>
-          Forgot Password?
-        </Text>
-        <View style={[styles.footer, { flexDirection: "row" }]}>
-          <Text style={[styles.text, { color: colors.text }]}>
-            Don't Have An Account?
-          </Text>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("Register");
-            }}
-            style={([styles.button], { marginLeft: 5 })}
-          >
-            <Text style={[styles.text, { color: colors.button }]}>
-              Register
+    <>
+      <StatusBar style="auto" />
+        <View style={[styles.container, { backgroundColor: colors.container }]}>
+          <View style={[styles.innerContainer, { marginTop: 24 }]}>
+            <Text
+              style={[
+                styles.header,
+                {
+                  color: colors.button,
+                  marginTop: Platform.OS === "ios" ? 10 : 0,
+                },
+              ]}
+            >
+              Welcome
             </Text>
-          </Pressable>
+          </View>
+          <View style={[styles.innerContainer, { gap: 16 }]}>
+            <Text style={[styles.header, { color: colors.button }]}>Login</Text>
+            <InputContainer
+              label="E-mail"
+              placeholder="E-mail"
+              keyboardType="email-address"
+            />
+            <InputContainer
+              label="Password"
+              placeholder="Password"
+              isHidden={true}
+            />
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 8,
+              }}
+            >
+              <MyButton
+                onPress={() => {
+                  navigation.navigate("Home");
+                }}
+              >
+                Login
+              </MyButton>
+            </View>
+          </View>
+          <View style={[styles.innerContainer]}>
+            <Text
+              style={[styles.text, { color: colors.text, marginBottom: 32 }]}
+            >
+              Forgot Password?
+            </Text>
+            <View style={[styles.footer, { flexDirection: "row" }]}>
+              <Text style={[styles.text, { color: colors.text }]}>
+                Don't Have An Account?
+              </Text>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate("Register");
+                }}
+                style={([styles.button], { marginLeft: 5 })}
+              >
+                <Text style={[styles.text, { color: colors.button }]}>
+                  Register
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+          {/* <ThemeButton /> */}
         </View>
-      </View>
-      {/* <ThemeButton /> */}
-    </View>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View,StatusBar } from "react-native";
 import Header from "../components/Header";
 import GetColors from "../theme/GetColors";
 import MyButton from "../components/MyButton";
@@ -30,6 +30,7 @@ const Contacts = () => {
         },
       ]}
     >
+      <StatusBar style="auto" />
       <Header style={{ color: colors.text }}>Contacts</Header>
       <View
         style={[
