@@ -1186,7 +1186,7 @@
     "semver" "^7.3.5"
     "slash" "^3.0.0"
     "xcode" "^3.0.1"
-    "xml2js" "0.4.23"
+    "xml2js" ">=0.4.23"
 
 "@expo/config-types@^48.0.0":
   "integrity" "sha512-DwyV4jTy/+cLzXGAo1xftS6mVlSiLIWZjl9DjTCLPFVgNYQxnh7htPilRv4rBhiNs7KaznWqKU70+4zQoKVT9A=="
