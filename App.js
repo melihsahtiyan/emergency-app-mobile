@@ -9,7 +9,7 @@ import Profile from "./pages/Profile";
 import Contacts from "./pages/Contacts";
 import Report from "./pages/Report";
 import InformationsProvider from "./store/context/informations-context";
-import { StatusBar } from "expo-status-bar";
+import ChatBot from "./pages/ChatBot";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +36,7 @@ export default App = () => {
                   <Stack.Screen name="Home" component={Home} />
                   <Stack.Screen name="Contacts" component={Contacts} />
                   <Stack.Screen name="Report" component={Report} />
+                  <Stack.Screen name="ChatBot" component={ChatBot} />
                 </>
               )}
             </Stack.Navigator>

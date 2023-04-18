@@ -5,9 +5,11 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import Header from "../components/Header";
 import MyButton from "../components/MyButton";
 import { InformationsContext } from "../store/context/informations-context";
-import GetColors from "../theme/GetColors";
-const Report = () => {
-  const colors = GetColors();
+import GetAssets from "../theme/GetColors";
+
+
+const Report = ({navigation}) => {
+  const colors = GetAssets();
 
   const location = useContext(InformationsContext).location;
 
@@ -63,6 +65,7 @@ const Report = () => {
           style={{ width: "95%", height: 64 }}
           onPress={() => {
             console.log(location);
+            navigation.navigate("ChatBot");
           }}
         >
           Submit

@@ -6,6 +6,7 @@ export const globalColors = {
     buttonText: "#fbfbfb",
     button: "#f90100",
     green: "#00E50F",
+    gpt:"#10a37f"
   },
   dark: {
     container: "#161616",
@@ -14,6 +15,7 @@ export const globalColors = {
     buttonText: "#fbfbfb",
     button: "#ff1f1e",
     green: "#00E50F",
+    gpt:"#10a37f"
   },
 };
 

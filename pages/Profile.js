@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FlatList, Platform, StyleSheet, View, StatusBar } from "react-native";
 import Header from "../components/Header";
 import { ThemeButton } from "../components/ThemeButton";
-import GetColors from "../theme/GetColors";
+import GetAssets from "../theme/GetColors";
 import { SelectList } from "react-native-dropdown-select-list";
 import InputContainer from "../components/InputContainer";
 import { Text } from "react-native-paper";
@@ -11,7 +11,7 @@ import Icon from "react-native-vector-icons/Feather";
 import UserIcon from "../components/UserIcon";
 
 const Profile = ({ navigation }) => {
-  const colors = GetColors();
+  const colors = GetAssets();
   const [bloodType, setBloodType] = useState("Blood Type");
   const [gender, setGender] = useState();
   const [allergies, setAllergies] = useState([]);

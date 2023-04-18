@@ -1,6 +1,6 @@
 import { StyleSheet, View,StatusBar } from "react-native";
 import Header from "../components/Header";
-import GetColors from "../theme/GetColors";
+import GetAssets from "../theme/GetColors";
 import MyButton from "../components/MyButton";
 import Icon from "react-native-vector-icons/Feather";
 import { Text } from "react-native-paper";
@@ -9,7 +9,7 @@ import { ThemeButton } from "../components/ThemeButton";
 import { useState } from "react";
 
 const Contacts = () => {
-  const colors = GetColors();
+  const colors = GetAssets();
 
   const [contact, setContact] = useState();
   const [contacts, setContacts] = useState([]);

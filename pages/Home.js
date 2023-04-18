@@ -4,7 +4,7 @@ import { Image, Platform, Pressable, StyleSheet, View,StatusBar } from "react-na
 import { Text } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import UserIcon from "../components/UserIcon";
-import GetColors from "../theme/GetColors";
+import GetAssets from "../theme/GetColors";
 import { ThemeContext } from "../theme/ThemeProvider";
 import * as Location from "expo-location";
 import LightModeIcon from "./../assets/imgs/LightModeIcon.svg";
@@ -12,7 +12,7 @@ import DarkModeIcon from "./../assets/imgs/DarkModeIcon.svg";
 import { InformationsContext } from "../store/context/informations-context";
 
 const Home = ({ navigation }) => {
-  const colors = GetColors();
+  const colors = GetAssets();
   const [permission, setPermission] = useState(false);
   const [location, setLocation] = useState();
 
