@@ -3,13 +3,18 @@ import GetAssets from "../theme/GetColors";
 import Header from "../components/Header";
 import InputContainer from "../components/InputContainer";
 import { Text } from "react-native-paper";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Icon from "react-native-vector-icons/Feather";
 
 const ChatBot = () => {
   const colors = GetAssets();
 
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState([
+    {
+      text: "Hello!\nDo you need any help? If you do, explain it with details so that we can help you more effective way.",
+      owner: "gpt",
+    },
+  ]);
   const [chat, setChat] = useState([]);
 
   const onSubmitChatHandler = (chat) => {
@@ -48,7 +53,12 @@ const ChatBot = () => {
               <View
                 style={[
                   styles.inputContainer,
-                  { borderTopColor: index === 0 ? null : colors.gpt, gap: 8 },
+                  {
+                    borderTopColor: index === 0 ? null : colors.gpt,
+                    borderTopWidth: index === 0 ? null : 0.8,
+                    width: "100%",
+                    gap: 12,
+                  },
                 ]}
               >
                 <>
@@ -58,9 +68,15 @@ const ChatBot = () => {
                         ? require("../assets/imgs/Asset7.png")
                         : require("../assets/imgs/ChatGPT-Logo-PNG-1.png")
                     }
-                    style={{ width: 25, height: 25 }}
+                    style={{
+                      width: 25,
+                      height: item.owner === "user" ? 30 : 25,
+                    }}
                   />
-                  <Text style={{ color: colors.text, fontSize: 20 }}>
+                  <Text
+                    style={{ color: colors.text, fontSize: 16, width: "80%" }}
+                  >
+                    {item.owner === "user" ? "You: " : "Gpt: "}
                     {item.text}
                   </Text>
                 </>
@@ -128,11 +144,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   inputContainer: {
-    justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "stretch",
+    justifyContent: "flex-start",
     flexDirection: "row",
-    width: "100%",
-    padding: 8,
-    borderTopWidth: 0.8,
+    width: "90%",
+    padding: 12,
   },
 });
