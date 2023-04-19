@@ -11,6 +11,8 @@ const InputContainer = ({
   isHidden,
   keyboardType,
   onChangeText,
+  multiline,
+  numberOfLines,
 }) => {
   const { theme } = useContext(ThemeContext);
   const [colors, setColors] = useState(
@@ -47,6 +49,8 @@ const InputContainer = ({
           secureTextEntry={isHidden}
           keyboardType={keyboardType}
           onChangeText={onChangeText}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
         />
       </View>
     </>
