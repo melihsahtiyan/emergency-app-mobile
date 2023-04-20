@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import GetAssets from "../theme/GetColors";
 import Header from "../components/Header";
 import InputContainer from "../components/InputContainer";
@@ -39,50 +39,54 @@ const ChatBot = () => {
           source={require("../assets/imgs/ResQ-logo.png")}
           style={{ width: 125, height: 50 }}
         />
-        <Header style={[{ color: colors.text }]}>Chat Bot</Header>
-        <Text style={{ fontSize: 16, color: colors.text, marginTop: 8 }}>
-          by OpenAi
-        </Text>
+        <Header style={[{ color: colors.text }]}>
+          Chat Bot{" "}
+          <Text style={{ fontSize: 16, color: colors.text, marginTop: 8 }}>
+            by OpenAi
+          </Text>
+        </Header>
       </View>
       <View style={[styles.innerContainer, {}]}>
         <View
           style={[styles.arrayContainer, { backgroundColor: colors.input }]}
         >
-          {chats.map((item, index) => {
-            return (
-              <View
-                style={[
-                  styles.inputContainer,
-                  {
-                    borderTopColor: index === 0 ? null : colors.gpt,
-                    borderTopWidth: index === 0 ? null : 0.8,
-                    width: "100%",
-                    gap: 12,
-                  },
-                ]}
-              >
-                <>
-                  <Image
-                    source={
-                      item.owner === "user"
-                        ? require("../assets/imgs/Asset7.png")
-                        : require("../assets/imgs/ChatGPT-Logo-PNG-1.png")
-                    }
-                    style={{
-                      width: 25,
-                      height: item.owner === "user" ? 30 : 25,
-                    }}
-                  />
-                  <Text
-                    style={{ color: colors.text, fontSize: 16, width: "80%" }}
-                  >
-                    {item.owner === "user" ? "You: " : "Gpt: "}
-                    {item.text}
-                  </Text>
-                </>
-              </View>
-            );
-          })}
+          <ScrollView style={{ width: "100%", height: 400 }}>
+            {chats.map((item, index) => {
+              return (
+                <View
+                  style={[
+                    styles.inputContainer,
+                    {
+                      borderTopColor: index === 0 ? null : colors.gpt,
+                      borderTopWidth: index === 0 ? null : 0.8,
+                      width: "100%",
+                      gap: 12,
+                    },
+                  ]}
+                >
+                  <>
+                    <Image
+                      source={
+                        item.owner === "user"
+                          ? require("../assets/imgs/Asset7.png")
+                          : require("../assets/imgs/ChatGPT-Logo-PNG-1.png")
+                      }
+                      style={{
+                        width: 25,
+                        height: item.owner === "user" ? 30 : 25,
+                      }}
+                    />
+                    <Text
+                      style={{ color: colors.text, fontSize: 16, width: "80%" }}
+                    >
+                      {item.owner === "user" ? "You: " : "Gpt: "}
+                      {item.text}
+                    </Text>
+                  </>
+                </View>
+              );
+            })}
+          </ScrollView>
         </View>
         <View style={styles.input}>
           <InputContainer
@@ -115,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    gap: 48,
+    gap: 136,
   },
   arrayContainer: {
     width: "100%",
