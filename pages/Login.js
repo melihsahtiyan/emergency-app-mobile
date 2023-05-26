@@ -5,16 +5,27 @@ import { globalColors } from "./../theme/colors";
 import InputContainer from "./../components/InputContainer";
 import { ThemeButton } from "../components/ThemeButton";
 import MyButton from "../components/MyButton";
+import { login } from "../services/authService";
 
 const Login = ({ navigation }) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [colors, setColors] = useState(
     theme === "light" ? globalColors.light : globalColors.dark
   );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     setColors(theme === "light" ? globalColors.light : globalColors.dark);
   }, [theme]);
+
+  const onLoginPressHandler = () => {
+    navigation.navigate("Home");
+    console.log('====================================');
+    console.log(email, password);
+    console.log('====================================');
+    login({ email: email, password: password});
+  };
 
   return (
     <>
@@ -39,11 +50,13 @@ const Login = ({ navigation }) => {
               label="E-mail"
               placeholder="E-mail"
               keyboardType="email-address"
+              onChangeText={(text) => {setEmail(text)}}
             />
             <InputContainer
               label="Password"
               placeholder="Password"
               isHidden={true}
+              onChangeText={(text) => {setPassword(text)}}
             />
             <View
               style={{
@@ -54,7 +67,7 @@ const Login = ({ navigation }) => {
             >
               <MyButton
                 onPress={() => {
-                  navigation.navigate("Home");
+                  onLoginPressHandler();
                 }}
               >
                 Login

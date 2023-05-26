@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://10.0.2.2:7276/api/auth";
+const apiUrl = "http://13.48.13.201:5000/api/Auth";
 
 const register = (userForRegister) => {
   axios
@@ -14,6 +14,7 @@ const register = (userForRegister) => {
     })
     .then((res) => {
       console.log("====================================");
+      console.log("Register Response:");
       console.log(res);
       console.log("====================================");
     })
@@ -29,7 +30,10 @@ const login = (userForLogin) => {
       password: userForLogin.password,
     })
     .then((res) => {
-      console.log(res);
+      console.log('====================================');
+      console.log("Login Response:");
+      console.log(res.data);
+      console.log('====================================');
     })
     .catch((err) => {
       console.log(err);
