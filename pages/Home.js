@@ -7,8 +7,8 @@ import UserIcon from "../components/UserIcon";
 import GetAssets from "../theme/GetColors";
 import { ThemeContext } from "../theme/ThemeProvider";
 import * as Location from "expo-location";
-import LightModeIcon from "./../assets/imgs/LightModeIcon.svg";
-import DarkModeIcon from "./../assets/imgs/DarkModeIcon.svg";
+import LightModeIcon from "./../assets/imgs/LightModeIcon.png";
+import DarkModeIcon from "./../assets/imgs/DarkModeIcon.png";
 import { InformationsContext } from "../store/context/informations-context";
 
 const Home = ({ navigation }) => {
