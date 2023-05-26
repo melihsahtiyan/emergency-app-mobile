@@ -1,5 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { Pressable, StyleSheet, View, Platform, FlatList,StatusBar } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  Platform,
+  FlatList,
+  StatusBar,
+} from "react-native";
 import { Text } from "react-native-paper";
 import { globalColors } from "../theme/colors";
 import { ThemeContext } from "../theme/ThemeProvider";
@@ -40,8 +47,11 @@ const Register = ({ navigation }) => {
       console.log("====================================");
       console.log("userForRegister: ", userForRegister);
       console.log("====================================");
-
-      register(userForRegister);
+      if (password == confirmPassword) {
+        register(userForRegister).then(()=>{
+          navigation.navigate("Profile");
+        });
+      }
     }
   };
 
@@ -99,7 +109,7 @@ const Register = ({ navigation }) => {
               label="Date Of Birth"
               placeholder="Date Of Birth"
               onChangeText={(e) => setDateOfBirth(e)}
-              keyboardType="numeric"
+              keyboardType="date"
             />
             <InputContainer
               label="Identity Number"
@@ -143,7 +153,6 @@ const Register = ({ navigation }) => {
         </View>
         <MyButton
           onPress={() => {
-            // navigation.navigate("Profile");
             onPressHandler();
           }}
         >
