@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { useContext, useEffect, useRef, useState } from "react";
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { globalColors } from "./../theme/colors";
@@ -13,11 +13,17 @@ const InputContainer = ({
   onChangeText,
   multiline,
   numberOfLines,
+  scrollEnabled,
 }) => {
   const { theme } = useContext(ThemeContext);
   const [colors, setColors] = useState(
     theme === "light" ? globalColors.light : globalColors.dark
   );
+  const textInputRef = useRef(null);
+
+  const handleTextInputFocus = () => {
+    textInputRef.current?.focus();
+  };
 
   useEffect(() => {
     setColors(theme === "light" ? globalColors.light : globalColors.dark);
@@ -25,7 +31,7 @@ const InputContainer = ({
 
   return (
     <>
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <TextInput
           label={label}
           placeholder={placeholder}
@@ -51,8 +57,11 @@ const InputContainer = ({
           onChangeText={onChangeText}
           multiline={multiline}
           numberOfLines={numberOfLines}
+          scrollEnabled={false || scrollEnabled}
+          ref={textInputRef}
+          onFocus={handleTextInputFocus}
         />
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 };

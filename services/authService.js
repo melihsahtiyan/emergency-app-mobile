@@ -3,7 +3,7 @@ import axios from "axios";
 const apiUrl = "http://13.48.13.201:5000/api/Auth";
 
 const register = (userForRegister) => {
-  axios
+  const res = axios
     .post(apiUrl + "/register", {
       email: userForRegister.email,
       password: userForRegister.password,
@@ -12,15 +12,8 @@ const register = (userForRegister) => {
       birthDate: userForRegister.birthDate,
       identityNumber: userForRegister.identityNumber,
     })
-    .then((res) => {
-      console.log("====================================");
-      console.log("Register Response:");
-      console.log(res);
-      console.log("====================================");
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+
+    return res;
 };
 
 const login = (userForLogin) => {

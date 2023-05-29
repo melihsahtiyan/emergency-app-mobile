@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",
-    "@react-native-community/datetimepicker": "^7.0.0",
+    "@react-native-community/datetimepicker": "^6.7.3",
     "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
@@ -20,7 +20,7 @@
     "expo-location": "^15.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.4",
+    "react-native": "^0.71.8",
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-icons": "^0.7.1",
     "react-native-paper": "^5.2.0",

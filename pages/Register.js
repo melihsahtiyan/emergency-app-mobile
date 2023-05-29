@@ -15,6 +15,9 @@ import Header from "../components/Header";
 import InputContainer from "../components/InputContainer";
 import MyButton from "../components/MyButton";
 import { register } from "../services/authService";
+import MyDatePicker from "../components/MyDatePicker";
+
+
 
 const Register = ({ navigation }) => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -27,7 +30,7 @@ const Register = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [identityNumber, setIdentityNumber] = useState("");
 
   useEffect(() => {
@@ -41,15 +44,24 @@ const Register = ({ navigation }) => {
         password: password,
         firstName: firstName,
         lastName: lastName,
-        birthDate: dateOfBirth,
+        birthDate: dateOfBirth.toISOString(),
         identityNumber: identityNumber,
       };
       console.log("====================================");
       console.log("userForRegister: ", userForRegister);
       console.log("====================================");
       if (password == confirmPassword) {
-        register(userForRegister).then(()=>{
-          navigation.navigate("Profile");
+        const token = register(userForRegister)
+        .then((res) => {
+          console.log("====================================");
+          console.log("Register Response:");
+          console.log(res.data.token);
+          console.log("====================================");
+          return res.data.token;
+        })
+        .catch((err) => {
+          console.error(err);
+          return err;
         });
       }
     }
@@ -58,24 +70,27 @@ const Register = ({ navigation }) => {
   const renderScreen = () => {
     return (
       <>
-        <StatusBar style="auto" />
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <View style={styles.innerContainer}>
-            <View
-              style={{
-                flexDirection: "row",
-                gap: 12,
-                width: "48%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+        <View style={styles.container}>
+          <View style={[styles.header]}>
+            <Header style={{ marginTop: Platform.OS === "ios" ? 20 : 0 }}>
+              Register
+            </Header>
+            <Header
+              style={{ color: colors.text, textAlign: "center", fontSize: 24 }}
             >
+              Save Your Life In A Few Steps
+            </Header>
+          </View>
+          <StatusBar style="auto" />
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              gap: 24,
+            }}
+          >
+            <View style={styles.innerContainer}>
               <InputContainer
                 label="First Name"
                 placeholder="First Name"
@@ -86,36 +101,75 @@ const Register = ({ navigation }) => {
                 placeholder="Last Name"
                 onChangeText={(e) => setLastName(e)}
               />
+              <InputContainer
+                label="E-mail"
+                placeholder="E-mail"
+                onChangeText={(e) => setEmail(e)}
+                keyboardType="email-address"
+              />
+              <InputContainer
+                label="Password"
+                placeholder="Password"
+                onChangeText={(e) => setPassword(e)}
+                isHidden={true}
+                scrollEnabled={false}
+              />
+              <InputContainer
+                label="Confirm Password"
+                placeholder="Confirm Password"
+                onChangeText={(e) => setConfirmPassword(e)}
+                isHidden={true}
+              />
+              <InputContainer
+                label="Identity Number"
+                placeholder="Identity Number"
+                onChangeText={(e) => setIdentityNumber(e)}
+              />
+              <MyDatePicker date={dateOfBirth} setDate={setDateOfBirth} />
             </View>
-            <InputContainer
-              label="E-mail"
-              placeholder="E-mail"
-              onChangeText={(e) => setEmail(e)}
-              keyboardType="email-address"
-            />
-            <InputContainer
-              label="Password"
-              placeholder="Password"
-              onChangeText={(e) => setPassword(e)}
-              isHidden={true}
-            />
-            <InputContainer
-              label="Confirm Password"
-              placeholder="Confirm Password"
-              onChangeText={(e) => setConfirmPassword(e)}
-              isHidden={true}
-            />
-            <InputContainer
-              label="Date Of Birth"
-              placeholder="Date Of Birth"
-              onChangeText={(e) => setDateOfBirth(e)}
-              keyboardType="date"
-            />
-            <InputContainer
-              label="Identity Number"
-              placeholder="Identity Number"
-              onChangeText={(e) => setIdentityNumber(e)}
-            />
+            <View style={styles.footer}>
+              <View style={styles.rowContainer}>
+                <Checkbox />
+                <Text style={{ color: colors.button, fontWeight: "700" }}>
+                  I accept{" "}
+                  <Text
+                    style={{
+                      textDecorationLine: "underline",
+                      color: colors.button,
+                      fontWeight: "700",
+                    }}
+                  >
+                    Privacy Policy
+                  </Text>
+                </Text>
+              </View>
+              <MyButton
+                onPress={() => {
+                  onPressHandler();
+                }}
+              >
+                Register
+              </MyButton>
+              <View style={styles.rowContainer}>
+                <Text style={[styles.text, { color: colors.text }]}>
+                  Already have an account?
+                </Text>
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate("Login");
+                  }}
+                >
+                  <Text
+                    style={[
+                      styles.text,
+                      { color: colors.button, textDecorationLine: "underline" },
+                    ]}
+                  >
+                    Login
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
           </View>
         </View>
       </>
@@ -124,54 +178,7 @@ const Register = ({ navigation }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.container }]}>
-      <View style={[styles.header, { marginTop: 48 }]}>
-        <Header style={{ marginTop: Platform.OS === "ios" ? 10 : 0 }}>
-          Register
-        </Header>
-        <Header
-          style={{ color: colors.text, textAlign: "center", fontSize: 24 }}
-        >
-          Save Your Life In A Few Steps
-        </Header>
-      </View>
       <FlatList data={[1]} renderItem={() => renderScreen()} />
-      <View style={styles.footer}>
-        <View style={[styles.checkbox]}>
-          <Checkbox />
-          <Text style={{ color: colors.button, fontWeight: "700" }}>
-            I accept{" "}
-            <Text
-              style={{
-                textDecorationLine: "underline",
-                color: colors.button,
-                fontWeight: "700",
-              }}
-            >
-              Privacy Policy
-            </Text>
-          </Text>
-        </View>
-        <MyButton
-          onPress={() => {
-            onPressHandler();
-          }}
-        >
-          Register
-        </MyButton>
-      </View>
-      <View style={styles.checkbox}>
-        <Text style={[styles.text, { color: colors.text }]}>
-          Already Have An Account?{" "}
-        </Text>
-        <Pressable
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-          style={([styles.button], { marginLeft: 5 })}
-        >
-          <Text style={[styles.text, { color: colors.button }]}>Login</Text>
-        </Pressable>
-      </View>
     </View>
   );
 };
@@ -182,22 +189,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 24,
+    paddingVertical: 24
   },
   header: {
     gap: 36,
-    justifyContent: "center",
-    alignItems: "center",
+    marginTop: 10,
   },
   innerContainer: {
+    alignItems: "center",
+    width: "95%",
+    gap: 18,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    gap: 12,
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
-    gap: 12,
   },
   footer: {
     justifyContent: "center",
     alignItems: "center",
-    gap: 6,
+    gap: 18,
   },
   checkbox: {
     flexDirection: "row",
@@ -212,3 +224,40 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
+
+{
+  /* <Checkbox />
+            <Text style={{ color: colors.button, fontWeight: "700" }}>
+              I accept{" "}
+              <Text
+                style={{
+                  textDecorationLine: "underline",
+                  color: colors.button,
+                  fontWeight: "700",
+                }}
+              >
+                Privacy Policy
+              </Text>
+            </Text>
+            <MyButton
+              onPress={() => {
+                onPressHandler();
+              }}
+            >
+              Register
+            </MyButton> 
+            <View style={styles.checkbox}>
+            <Text style={[styles.text, { color: colors.text }]}>
+              Already Have An Account?{" "}
+            </Text>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+              style={([styles.button], { marginLeft: 5 })}
+            >
+              <Text style={[styles.text, { color: colors.button }]}>Login</Text>
+            </Pressable>
+          </View>
+            */
+}
