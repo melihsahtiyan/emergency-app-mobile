@@ -16,16 +16,16 @@ import InputContainer from "../components/InputContainer";
 import MyButton from "../components/MyButton";
 import { register } from "../services/authService";
 import MyDatePicker from "../components/MyDatePicker";
-
-
+import { SessionContext } from "../session/SessionProvider";
 
 const Register = ({ navigation }) => {
+  const { token, setToken, email, setEmail } = useContext(SessionContext);
+
   const { theme, setTheme } = useContext(ThemeContext);
   const [colors, setColors] = useState(
     theme === "light" ? globalColors.light : globalColors.dark
   );
 
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -37,7 +37,7 @@ const Register = ({ navigation }) => {
     setColors(theme === "light" ? globalColors.light : globalColors.dark);
   }, [theme]);
 
-  const onPressHandler = () => {
+  const onPressHandler = async () => {
     if (password == confirmPassword) {
       const userForRegister = {
         email: email,
@@ -47,22 +47,16 @@ const Register = ({ navigation }) => {
         birthDate: dateOfBirth.toISOString(),
         identityNumber: identityNumber,
       };
-      console.log("====================================");
-      console.log("userForRegister: ", userForRegister);
-      console.log("====================================");
       if (password == confirmPassword) {
-        const token = register(userForRegister)
-        .then((res) => {
-          console.log("====================================");
-          console.log("Register Response:");
-          console.log(res.data.token);
-          console.log("====================================");
-          return res.data.token;
-        })
-        .catch((err) => {
-          console.error(err);
-          return err;
-        });
+        const response = await register(userForRegister);
+
+        if (response.success === true) {
+          setToken(response.data.token);
+          navigation.navigate("Home");
+        }else{
+          console.log(userForRegister);
+          alert(response.message);
+        }
       }
     }
   };
@@ -189,7 +183,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 24,
-    paddingVertical: 24
+    paddingVertical: 24,
   },
   header: {
     gap: 36,

@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { Pressable, StyleSheet, View,StatusBar } from "react-native";
+import { Pressable, StyleSheet, View, StatusBar } from "react-native";
 import { Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Header from "../components/Header";
 import MyButton from "../components/MyButton";
-import { InformationsContext } from "../store/context/informations-context";
+import { InformationContext } from "../store/context/information-context";
 import GetAssets from "../theme/GetColors";
 
 
 const Report = ({navigation}) => {
   const colors = GetAssets();
 
-  const location = useContext(InformationsContext).location;
+  const location = useContext(InformationContext).location;
 
   return (
     <View style={[styles.container, { backgroundColor: colors.container }]}>
@@ -40,6 +40,7 @@ const Report = ({navigation}) => {
                 width: "42%",
               },
             ]}
+            onPress={() => {navigation.navigate("ReportDetail")}}
           >
             <Icon name="keyboard" size={36} color={colors.text} />
             <Text style={{ fontSize: 18, color: colors.text }}>Text</Text>

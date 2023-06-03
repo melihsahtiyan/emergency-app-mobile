@@ -3,28 +3,37 @@ import { StyleSheet, Text, View, Pressable, StatusBar } from "react-native";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { globalColors } from "./../theme/colors";
 import InputContainer from "./../components/InputContainer";
-import { ThemeButton } from "../components/ThemeButton";
 import MyButton from "../components/MyButton";
 import { login } from "../services/authService";
+import { SessionContext } from "../session/SessionProvider";
+import { getUserByEmail } from "../services/userService";
 
 const Login = ({ navigation }) => {
+
+  const { token, setToken, email, setEmail } = useContext(SessionContext);
+
+  const { userId, setUserId } = useContext(SessionContext);
+
   const { theme, setTheme } = useContext(ThemeContext);
   const [colors, setColors] = useState(
     theme === "light" ? globalColors.light : globalColors.dark
   );
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
     setColors(theme === "light" ? globalColors.light : globalColors.dark);
   }, [theme]);
 
-  const onLoginPressHandler = () => {
-    navigation.navigate("Home");
-    console.log('====================================');
-    console.log(email, password);
-    console.log('====================================');
-    login({ email: email, password: password});
+  const onLoginPressHandler = async () => {
+    const response = await login({ email: email, password: password});
+    if(response.success === true) {
+      setToken(response.data.token);
+      // setUserId(await getUserByEmail(email))
+      // console.log('====================================');
+      // console.log("User Id: ", userId);
+      // console.log('====================================');
+      navigation.navigate("Home");
+    }
   };
 
   return (

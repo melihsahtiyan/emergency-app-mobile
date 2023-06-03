@@ -10,7 +10,7 @@ import {
 import { Modal, Text } from "react-native-paper";
 import GetColors from "../theme/GetColors";
 
-const DropDown = ({ selectedValue, onValueChange, data }) => {
+const DropDown = ({ selectedValue, onValueChange, data, label }) => {
   const colors = GetColors();
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -18,7 +18,7 @@ const DropDown = ({ selectedValue, onValueChange, data }) => {
     <>
       <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.input}>
-          <Text style={{ color: colors.text }}>{selectedValue}</Text>
+          <Text style={{ color: colors.text }}>{selectedValue === null ? label : selectedValue}</Text>
         </View>
       </TouchableOpacity>
       <Modal

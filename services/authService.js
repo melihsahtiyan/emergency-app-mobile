@@ -2,8 +2,9 @@ import axios from "axios";
 
 const apiUrl = "http://13.48.13.201:5000/api/Auth";
 
-const register = (userForRegister) => {
-  const res = axios
+const register = async (userForRegister) => {
+  let response;
+  await axios
     .post(apiUrl + "/register", {
       email: userForRegister.email,
       password: userForRegister.password,
@@ -12,25 +13,39 @@ const register = (userForRegister) => {
       birthDate: userForRegister.birthDate,
       identityNumber: userForRegister.identityNumber,
     })
+    .then((res) => {
+      response = res.data;
+    })
+    .catch((err) => {
+      console.log("====================================");
+      console.log("Register Error Response:");
+      console.log(err.response.data);
+      response = err.response.data;
+    });
 
-    return res;
+  console.log("====================================");
+  console.log("Register Response:", response);
+  console.log("====================================");
+
+  return response;
 };
 
-const login = (userForLogin) => {
-  axios
+const login = async (userForLogin) => {
+  let response;
+  await axios
     .post(apiUrl + "/login", {
       email: userForLogin.email,
       password: userForLogin.password,
     })
     .then((res) => {
-      console.log('====================================');
-      console.log("Login Response:");
-      console.log(res.data);
-      console.log('====================================');
+      response = res.data;
     })
     .catch((err) => {
+      console.log("====================================");
+      console.log("Login Error Response:");
       console.log(err);
     });
+  return response;
 };
 
 export { register, login };

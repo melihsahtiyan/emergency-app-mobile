@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
 
-export const InformationsContext = createContext({
+export const InformationContext = createContext({
   userId: null,
   location: { latitude: null, longitude: null, altitude: null },
   setLocation: (latitude, longitude, altitude) => {},
 });
 
-function InformationsProvider({ children }) {
+function InformationProvider({ children }) {
   const [userId, setUserId] = useState(null);
   const [location, setLocation] = useState({
     latitude: null,
@@ -34,10 +34,10 @@ function InformationsProvider({ children }) {
   };
 
   return (
-    <InformationsContext.Provider value={contextValue}>
+    <InformationContext.Provider value={contextValue}>
       {children}
-    </InformationsContext.Provider>
+    </InformationContext.Provider>
   );
 }
 
-export default InformationsProvider;
+export default InformationProvider;
