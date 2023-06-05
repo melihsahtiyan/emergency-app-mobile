@@ -4,14 +4,14 @@ import { Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Header from "../components/Header";
 import MyButton from "../components/MyButton";
-import { InformationContext } from "../store/context/information-context";
 import GetAssets from "../theme/GetColors";
+import { SessionContext } from "../session/SessionProvider";
 
 
 const Report = ({navigation}) => {
   const colors = GetAssets();
 
-  const location = useContext(InformationContext).location;
+  const location = useContext(SessionContext).location;
 
   return (
     <View style={[styles.container, { backgroundColor: colors.container }]}>

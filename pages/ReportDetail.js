@@ -8,15 +8,15 @@ import { getCategories } from "../services/categoryService";
 import { SelectList } from "react-native-dropdown-select-list";
 import { SessionContext } from "../session/SessionProvider";
 import MyButton from "../components/MyButton";
+import { addPost } from "../services/reportService";
+import { addGptChat } from "../services/gptChatsService";
 
-const ReportDetail = () => {
+const ReportDetail = ({ navigation }) => {
   const colors = GetAssets();
-  const { theme, setTheme } = useContext(ThemeContext);
-  const { location, setLocation } = useContext(SessionContext);
+  const { userId, location, post, setPost } = useContext(SessionContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const date = new Date().getTime();
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
@@ -26,10 +26,38 @@ const ReportDetail = () => {
         res.map((item) => ({ key: item.id, value: item.categoryName }))
       );
     });
-    // console.log("====================================");
-    // console.log("Categories:", categories);
-    // console.log("====================================");
   }, []);
+
+  const onPressHandler = async () => {
+    const report = {
+      title: title,
+      description: description,
+      date: new Date().toISOString(),
+      latitudeFloat: parseFloat(location.latitude),
+      longitudeFloat: parseFloat(location.longitude),
+      altitudeFloat: parseFloat(location.altitude),
+      categoryId: category,
+      userId: userId,
+    };
+    const response = await addPost(report);
+    if (response.success) {
+      alert("Report sent successfully");
+      setPost({ postId: response.data, title: title });
+      const chatResponse = await addGptChat({
+        postId: response.data,
+        userId: userId,
+        responseId: "string",
+        message: "string",
+        sentBy: "string",
+      });
+      navigation.navigate("ChatBot");
+    } else {
+      alert(response.message);
+      console.log("====================================");
+      console.log(response.message);
+      console.log("====================================");
+    }
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.container }]}>
@@ -45,12 +73,12 @@ const ReportDetail = () => {
       />
       <InputContainer
         label="Description"
-        placeholder="Please describe the problem (max 100 words)"
+        placeholder="Please describe the problem (max 100 letters)"
         multiline={true}
         onChangeText={(text) => {
           setDescription(text);
         }}
-        style={[{ color: colors.text }]}
+        style={[{ color: colors.text, height: 80 }]}
       />
       <SelectList
         setSelected={(item) => {
@@ -68,7 +96,9 @@ const ReportDetail = () => {
         boxStyles={{ backgroundColor: colors.input, width: "50%" }}
         search={false}
       />
-      <MyButton style={[{ color: colors.text }]}>Send Report</MyButton>
+      <MyButton onPress={onPressHandler} style={[{ color: colors.text }]}>
+        Send Report
+      </MyButton>
     </View>
   );
 };
@@ -80,6 +110,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    gap: 36,
+    gap: 48,
   },
 });

@@ -3,31 +3,50 @@ import GetAssets from "../theme/GetColors";
 import Header from "../components/Header";
 import InputContainer from "../components/InputContainer";
 import { Text } from "react-native-paper";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Feather";
+import { SessionContext } from "../session/SessionProvider";
+import { addGptChat, getGptChatByPostId } from "../services/gptChatsService";
 
-const ChatBot = () => {
+const ChatBot = ({ route }) => {
   const colors = GetAssets();
+  const { post, userId } = useContext(SessionContext);
 
-  const [chats, setChats] = useState([
-    {
-      text: "Hello!\nDo you need any help? If you do, explain it with details so that we can help you more effective way.",
-      owner: "gpt",
-    },
-    // {
-    //   text: "\n\nYazılım kariyerleriyle ilgili olarak, birçok farklı alan vardır. Yazılım geliştirme, yazılım denetimi, yazılım mühendisliği, yazılım test etme ve yazılım yönetimi gibi alanların her biri farklı yetenekleri gerektirir. Bu alanlarda kariyer yapmak isteyenlerin, kendilerini geliştirmeleri ve sürekli olarak eğitim almaları gerekir.\n\nYazılım geliştirme, yeni yazılımların ve uygulamaların tasarımı, geliştirilmesi ve dağıtılması sürecini kapsar. Yazılım geliştirme süreci, yazılım sistemlerinin tasarlanmasından, kodlamaya, test etmeye ve son olarak da kullanıcılara sunulmasına kadar uzanır. Yazılım geliştirme, bir yazılım sisteminin tamamının oluşturulması süreci değildir; aksine, bir yazılım sisteminin bir parçasının geliştirilmesi sürecidir.\n\nYazılım denetimi, yazılım sistemlerinin işleyişini ve güvenilirliğini test etmek ve denetlemek için kullanılan bir yöntemdir. Yazılım denetimi, bir yazılım sisteminin doğru çalışıp çalışmadığını, beklenen sonuçları verip vermediğini ve güvenilir olup olmadığını test etmek için kullanılır. Yazılım denetimi, sadece yazılım sistemleri için değil, aynı zamanda bilgisayar sistemleri için de kullanılabilir.\n\nYazılım mühendisliği, yazılım sistemlerinin tasarımı, geliştirilmesi, test edilmesi ve bakımı ile ilgilenen bir meslektir. Yazılım mühendisleri, yazılım sistemlerinin nasıl çalışacağını ve bunları nasıl geliştireceklerini bilirler. Ayrıca, yazılım mühendisleri, yazılım sistemlerinin kullanıcılarının beklentilerini karşılayıp karşılamadığını, kullanıcıların nasıl kullanacağını ve yazılım sistemlerinin nasıl geliştirileceğini de bilirler.\n\nYazılım test etme, yazılım sistemlerinin doğruluğunu, güvenilirliğini ve kullanılabilirliğini test etmek için kullanılan bir yöntemdir. Yazılım test etme, yazılım sistemlerinin kullanılabilirliğini, güvenilirliğini, doğruluğunu ve kararlılığını test etmek için kullanılır. Ayrıca, yazılım test etme, yazılım sistemlerinin kullanıcılarının beklentilerini karşılayıp karşılamadığını da test eder.\n\nYazılım yönetimi, yazılım sistemlerinin tasarımı, geliştirilmesi, kullanılması, bakımı ve güncellenmesi ile ilgilenen bir meslektir. Yazılım yöneticileri, yazılım sistemlerinin nasıl çalışacağını ve bunları nasıl geliştireceklerini bilirler. Ayrıca, yazılım yöneticileri, yazılım sistemlerinin kullanıcılarının beklentilerini karşılayıp karşılamadığını, kullanıcıların nasıl kullanacağını ve yazılım sistemlerinin nasıl geliştirileceğini de bilirler.",
-    //   owner: "gpt",
-    // },
-  ]);
+  const [chats, setChats] = useState([]);
   const [chat, setChat] = useState([]);
 
-  const onSubmitChatHandler = (chat) => {
-    setChats([
-      ...chats,
-      { text: chat, owner: "user" },
-      { text: "If you need help about something please be calm", owner: "gpt" },
-    ]);
+  const sendChatHandler = async () => {
+    const chatToAdd = {
+      postId: post.postId,
+      userId: userId,
+      message: chat,
+      sentBy: "string",
+      responseId: "string",
+    };
+    const response = await addGptChat(chatToAdd);
+    if (response.success) {
+      setChat("");
+    }
   };
+
+  useEffect(() => {
+    console.log("====================================");
+    console.log("Post:  ", post);
+    console.log("====================================");
+    getGptChatByPostId(post.postId).then((res) => {
+      setChats(
+        res.map((item) => ({
+          key: item.id,
+          text: item.message,
+          owner: item.sentBy,
+        }))
+      );
+    });
+
+    console.log("====================================");
+    console.log("Chats: ", chats);
+    console.log("====================================");
+  }, [chat]);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.container }]}>
@@ -71,14 +90,14 @@ const ChatBot = () => {
                   <>
                     <Image
                       source={
-                        item.owner === "user"
-                          ? require("../assets/imgs/Asset7.png")
-                          : require("../assets/imgs/ChatGPT-Logo-PNG-1.png")
+                        item.owner === "User"
+                          ? require("../assets/imgs/logo-dark.png")
+                          : require("../assets/imgs/logo-red.png")
                       }
                       style={{
                         width: 25,
-                        height: item.owner === "user" ? 30 : 25,
-                      }}
+                        height: 30,
+                      }} 
                     />
                     <Text
                       style={{ color: colors.text, fontSize: 16, width: "80%" }}
@@ -105,10 +124,10 @@ const ChatBot = () => {
           <Pressable
             style={[styles.button, { backgroundColor: colors.input }]}
             onPress={() => {
-              onSubmitChatHandler(chat);
+              sendChatHandler();
             }}
           >
-            <Icon name="send" size={18} color={colors.text} />
+            <Icon name="send" size={24} color={colors.text} />
           </Pressable>
         </View>
       </View>
@@ -123,7 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    gap: 136,
+    gap: 120,
   },
   arrayContainer: {
     width: "100%",
@@ -141,8 +160,8 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    width: 40,
-    height: 40,
+    width: 56,
+    height: 56,
     borderRadius: 8,
   },
   input: {

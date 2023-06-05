@@ -9,10 +9,7 @@ import { SessionContext } from "../session/SessionProvider";
 import { getUserByEmail } from "../services/userService";
 
 const Login = ({ navigation }) => {
-
-  const { token, setToken, email, setEmail } = useContext(SessionContext);
-
-  const { userId, setUserId } = useContext(SessionContext);
+  const { token, setToken, email, setEmail, userId, setUserId } = useContext(SessionContext);
 
   const { theme, setTheme } = useContext(ThemeContext);
   const [colors, setColors] = useState(
@@ -20,18 +17,15 @@ const Login = ({ navigation }) => {
   );
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    setColors(theme === "light" ? globalColors.light : globalColors.dark);
-  }, [theme]);
-
   const onLoginPressHandler = async () => {
-    const response = await login({ email: email, password: password});
-    if(response.success === true) {
+    const response = await login({ email: email, password: password });
+    if (response.success === true) {
       setToken(response.data.token);
-      // setUserId(await getUserByEmail(email))
-      // console.log('====================================');
-      // console.log("User Id: ", userId);
-      // console.log('====================================');
+      const user = await getUserByEmail(email);
+      setUserId(user?.id);
+      console.log('====================================');
+      console.log("User Id: " + userId);
+      console.log('====================================');
       navigation.navigate("Home");
     }
   };
@@ -39,74 +33,76 @@ const Login = ({ navigation }) => {
   return (
     <>
       <StatusBar style="auto" />
-        <View style={[styles.container, { backgroundColor: colors.container }]}>
-          <View style={[styles.innerContainer, { marginTop: 24 }]}>
-            <Text
-              style={[
-                styles.header,
-                {
-                  color: colors.button,
-                  marginTop: Platform.OS === "ios" ? 10 : 0,
-                },
-              ]}
-            >
-              Welcome
-            </Text>
-          </View>
-          <View style={[styles.innerContainer, { gap: 16 }]}>
-            <Text style={[styles.header, { color: colors.button }]}>Login</Text>
-            <InputContainer
-              label="E-mail"
-              placeholder="E-mail"
-              keyboardType="email-address"
-              onChangeText={(text) => {setEmail(text)}}
-            />
-            <InputContainer
-              label="Password"
-              placeholder="Password"
-              isHidden={true}
-              onChangeText={(text) => {setPassword(text)}}
-            />
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 8,
+      <View style={[styles.container, { backgroundColor: colors.container }]}>
+        <View style={[styles.innerContainer, { marginTop: 24 }]}>
+          <Text
+            style={[
+              styles.header,
+              {
+                color: colors.button,
+                marginTop: Platform.OS === "ios" ? 10 : 0,
+              },
+            ]}
+          >
+            Welcome
+          </Text>
+        </View>
+        <View style={[styles.innerContainer, { gap: 16 }]}>
+          <Text style={[styles.header, { color: colors.button }]}>Login</Text>
+          <InputContainer
+            label="E-mail"
+            placeholder="E-mail"
+            keyboardType="email-address"
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+          />
+          <InputContainer
+            label="Password"
+            placeholder="Password"
+            isHidden={true}
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
+          />
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 8,
+            }}
+          >
+            <MyButton
+              onPress={() => {
+                onLoginPressHandler();
               }}
             >
-              <MyButton
-                onPress={() => {
-                  onLoginPressHandler();
-                }}
-              >
-                Login
-              </MyButton>
-            </View>
+              Login
+            </MyButton>
           </View>
-          <View style={[styles.innerContainer]}>
-            <Text
-              style={[styles.text, { color: colors.text, marginBottom: 32 }]}
-            >
-              Forgot Password?
-            </Text>
-            <View style={[styles.footer, { flexDirection: "row" }]}>
-              <Text style={[styles.text, { color: colors.text }]}>
-                Don't Have An Account?
-              </Text>
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
-                style={([styles.button], { marginLeft: 5 })}
-              >
-                <Text style={[styles.text, { color: colors.button }]}>
-                  Register
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-          {/* <ThemeButton /> */}
         </View>
+        <View style={[styles.innerContainer]}>
+          <Text style={[styles.text, { color: colors.text, marginBottom: 32 }]}>
+            Forgot Password?
+          </Text>
+          <View style={[styles.footer, { flexDirection: "row" }]}>
+            <Text style={[styles.text, { color: colors.text }]}>
+              Don't Have An Account?
+            </Text>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Register");
+              }}
+              style={([styles.button], { marginLeft: 5 })}
+            >
+              <Text style={[styles.text, { color: colors.button }]}>
+                Register
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+        {/* <ThemeButton /> */}
+      </View>
     </>
   );
 };

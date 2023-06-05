@@ -3,13 +3,18 @@ import axios from "axios";
 const apiUrl = "http://13.48.13.201:5000/api/Users";
 
 const getUserByEmail = async (email) => {
-  const response = axios
+  let response;
+  
+  await axios
     .get(apiUrl + "/getbyemail?email=" + email)
     .then((res) => {
-      return res.data.data;
+      response = res.data.data;
+      console.log('====================================');
+      console.log("Get User By Email Response:", response);
+      console.log('====================================');
     })
     .catch((err) => {
-      return err.response.data;
+      response = err.response.data;
     });
 
   return response;

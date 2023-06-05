@@ -9,18 +9,19 @@ import { ThemeContext } from "../theme/ThemeProvider";
 import * as Location from "expo-location";
 import LightModeIcon from "./../assets/imgs/LightModeIcon.png";
 import DarkModeIcon from "./../assets/imgs/DarkModeIcon.png";
-import { InformationContext } from "../store/context/information-context";
+import { SessionContext } from "../session/SessionProvider";
 
 const Home = ({ navigation }) => {
   const colors = GetAssets();
   const [permission, setPermission] = useState(false);
-  const { location, setLocation } = useContext(InformationContext);
+  const { location, setLocation, userId } = useContext(SessionContext);
+  
 
-  const informationCtx = useContext(InformationContext);
+  const sessionCtx = useContext(SessionContext);
 
-  function changeLocationHandler(location) {
-    informationCtx.setLocation(location);
-  }
+  const changeLocationHandler = (location) => {
+    sessionCtx.setLocation(location);
+  };
 
   useEffect(() => {
     (async () => {
@@ -32,13 +33,13 @@ const Home = ({ navigation }) => {
         altitude: location.coords.altitude,
       });
     })();
-    // console.log("====================================");
-    // console.log("location: ", location);
-    // if (location) changeLocationHandler(location);
-    // console.log("Operating System: ", Platform.OS);
-    // console.log("====================================");
-    // console.log("Email in Home Page : ", email);
-    // console.log('====================================');
+    console.log('====================================');
+    console.log("User Id: " + userId);
+    console.log('====================================');
+    console.log("====================================");
+    console.log("location: ", location);
+    if (location) changeLocationHandler(location);
+    console.log("Operating System: ", Platform.OS);
   }, [location]);
 
   const { theme, setTheme } = useContext(ThemeContext);
